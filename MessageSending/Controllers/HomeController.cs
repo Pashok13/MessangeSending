@@ -11,14 +11,22 @@ namespace MessageSending.Controllers
 	{
 		MessengerContext DataBase = new MessengerContext();
 
-		public ActionResult Index()
+		//public ActionResult Index()
+		//{
+		//	return View();
+		//}
+
+		public ActionResult Registration()
 		{
-			// получаем из бд все объекты Book
-			IEnumerable<User> users = DataBase.Users;
-			// передаем все объекты в динамическое свойство Books в ViewBag
-			ViewBag.Users = users;
-			// возвращаем представление
 			return View();
+		}
+
+		[HttpPost]
+		public string Registration(User newUser)
+		{
+			DataBase.Users.Add(newUser);
+			DataBase.SaveChanges();
+			return "Account are added!";
 		}
 
 		public ActionResult About()
