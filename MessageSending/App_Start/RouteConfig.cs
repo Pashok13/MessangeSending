@@ -16,7 +16,7 @@ namespace MessageSending
 			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
-				defaults: new { controller = "Home", action = "Registration", id = UrlParameter.Optional }
+				defaults: new { controller = "Home", action = "Avtorization", id = UrlParameter.Optional }
 			);
 		}
 	}

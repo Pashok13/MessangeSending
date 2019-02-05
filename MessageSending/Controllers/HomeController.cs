@@ -10,11 +10,23 @@ namespace MessageSending.Controllers
 	public class HomeController : Controller
 	{
 		MessengerContext DataBase = new MessengerContext();
+		User CurrentUser;
 
-		//public ActionResult Index()
-		//{
-		//	return View();
-		//}
+		public ActionResult Avtorization()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult Avtorization(User user)
+		{
+			CurrentUser = DataBase.Users.FirstOrDefault(u => u.Login == user.Login);
+
+			if (CurrentUser.Password == user.Password)
+				return View("Main");
+			else
+				return View("Error");
+		}
 
 		public ActionResult Registration()
 		{
@@ -22,11 +34,11 @@ namespace MessageSending.Controllers
 		}
 
 		[HttpPost]
-		public string Registration(User newUser)
+		public ActionResult Registration(User newUser)
 		{
 			DataBase.Users.Add(newUser);
 			DataBase.SaveChanges();
-			return "Account are added!";
+			return View("Main");
 		}
 
 		public ActionResult About()
